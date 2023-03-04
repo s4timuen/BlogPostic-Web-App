@@ -1,11 +1,19 @@
-<template>
-  <div></div>
+<template lang='pug'>
+#app
+  Header
+  router-view
+  Footer
 </template>
 
 <script lang='js'>
+import Header from '@/views/components/header';
+import Footer from '@/views/components/footer';
+
 export default {
   name: 'App',
   components: {
+    Header,
+    Footer,
   }
 }
 </script>
