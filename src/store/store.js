@@ -6,10 +6,21 @@ const apiWrapper = new ApiWrapper();
 const store = new Vuex.Store({
     state: {
         apiWrapper: apiWrapper,
+        user: {},
+        jwt: '',
     },
-    mutations: {},
+    mutations: {
+        setUser(state, user) {
+            state.user = user;
+        },
+        setJwt(state, jwt) {
+            state.jwt = jwt;
+        }
+    },
     getters: {
-        apiWrapper: state => state.apiWrapper,
+        getApiWrapper: state => state.apiWrapper, 
+        getUser: state => state.user,
+        getJwt: state => state.jwt
     },
 });
 
