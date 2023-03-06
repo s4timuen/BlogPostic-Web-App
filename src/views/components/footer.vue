@@ -9,5 +9,8 @@ export default {
 }
 </script>
 
-<style lang='css'>
+<style scoped lang='css'>
+#footer {
+  background-color: var(--columbia-blue);
+}
 </style>

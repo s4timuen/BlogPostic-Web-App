@@ -3,23 +3,19 @@
 </template>
 
 <script lang='js'>
-import store from '@/store/store';
-
 export default {
   name: 'LoginPage',
-  components: { },
+  components: {  },
   data: function () {
     return {  
         apiWrapper: null
       }
   },
   mounted: function () {
-    this.apiWrapper = store.getters.getApiWrapper;
-    // TODO: set user data & jwt for requests after login
-    // TODO: set jwt to apiWrapper for requests 
+    this.apiWrapper = this.$store.getters.getApiWrapper;
    }
 }
 </script>
 
-<style lang='css'>
+<style scoped lang='css'>
 </style>
