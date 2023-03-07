@@ -18,26 +18,37 @@ export default {
     Header,
     Footer,
   },
-  mounted: function () {
+  before: async function () {
     const cookies = document.cookie.split(';')
+    let jwt = undefined;
 
-    cookies.forEach(async cookie => {
+    cookies.forEach(cookie => {
       if(cookie.startsWith('jwt=')) {
-
-        const jwt = cookie.replace('jwt=', '');
-        store.getters.getApiWrapper.setJwt(jwt);
-        const res = await store.getters.getApiWrapper.getMe();
-
-        if (res.status === 'error') {
-          store.commit('setJwt', '');
-          router.push({ path: '/login' });
-        }
-        if(res.status === 'success') {
-          store.commit('setJwt', jwt);
-          store.commit('setUser', res.data.data);
-        }
+        jwt = cookie ;
       }
     });
+
+    if(jwt) {
+      jwt = jwt.replace('jwt=', '');
+      store.getters.getApiWrapper.setJwt(jwt);
+      const res = await store.getters.getApiWrapper.getMe();  
+
+      if (res.status === 'error') {
+        store.commit('setJwt', '');
+        store.commit('setUser', {});
+        router.push({ path: '/login' });
+      }
+      if(res.status === 'success') {
+        store.commit('setJwt', jwt);
+        store.commit('setUser', res.data.data);
+        router.push({ path: '/home' });
+      }
+    }
+    if(!jwt) {
+      store.commit('setJwt', '');
+      store.commit('setUser', {});
+      router.push({ path: '/login' });
+    }
   }
 }
 </script>
